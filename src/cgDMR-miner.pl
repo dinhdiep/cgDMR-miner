@@ -10,7 +10,7 @@ my $script_dir = join("\/", @tmp);
 my $result_dir = "segmentation_results";
 my $temp_dir = "TempFiles";
 mkdir $temp_dir;
-my $do_remove_temp_dir = 0;
+my $do_remove_temp_dir = 1;
 my $samples_info = $ARGV[0];
 my $sites = $ARGV[1];
 my $minDepth = $ARGV[2];
@@ -94,13 +94,13 @@ sub main{
 		close(AMF_LIST_OUT);
 		close(SMF_LIST_OUT);
 		
-		$cmd = "$script_dir/table2Matrix.pl $smf_list 3 > $chr.matrix";
+		$cmd = "$script_dir/table2Matrix.pl $smf_list 3 > $temp_dir/$chr.matrix";
 		system($cmd) == 0 or warn "[Master] Failed to generate $chr matrix file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "Rscript $script_dir/analyzeMatrix.R $chr.matrix 1 label_groups $chr";
+		$cmd = "Rscript $script_dir/analyzeMatrix.R $temp_dir/$chr.matrix 1 label_groups $temp_dir/$chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate statistics file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "Rscript $script_dir/segmentOnly.R $chr.jsd.txt $chr";
+		$cmd = "Rscript $script_dir/segmentOnly.R $temp_dir/$chr.jsd.txt $temp_dir/$chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate bed file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "$script_dir/allMethyl2Matrix.pl $amf_list $minDepth 1 $chr.HMM.seg.txt cnt dmr $chr";
+		$cmd = "$script_dir/allMethyl2Matrix.pl $amf_list $minDepth 1 $temp_dir/$chr.HMM.seg.txt cnt dmr $chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate methylFreq file (exit $?): $!\nCommand used:\n\t$cmd\n";
 		$cmd = "$script_dir/Ctest_shuffle.pl $minDepth $pCutoff $minEffectSize < MethylMatrix.$chr.cnt > $chr.HMM.pval";
 		system($cmd) == 0 or warn "[Master] Failed to generate statistics file (exit $?): $!\nCommand used:\n\t$cmd\n"; 		
@@ -108,6 +108,7 @@ sub main{
 		$processed_chr{$chr} = 1;
 	}
 	system("rm -r $temp_dir") if($do_remove_temp_dir);	
+	system("rm -r MethylMatrixSmoothed") if($do_remove_temp_dir);	
 }
 
 sub printUsage{

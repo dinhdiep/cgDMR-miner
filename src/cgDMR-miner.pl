@@ -88,7 +88,7 @@ sub main{
 			}
 			close(MF_LIST_OUT);
 			$cmd = "$script_dir/goBsmooth_v3.pl $directorySmoothed $sample.$chr $cur_list $cpg_bed 1";
-				system($cmd) == 0 or die "[Master] Failed to generate smoothed file (exit $?): $!\nCommand used:\n\t$cmd\n";
+			system($cmd) == 0 or die "[Master] Failed to generate smoothed file (exit $?): $!\nCommand used:\n\t$cmd\n";
 			print SMF_LIST_OUT "$sample\t$directorySmoothed/MethylMatrix.$sample.$chr.smoothed\n";
 		}
 		close(AMF_LIST_OUT);
@@ -96,9 +96,9 @@ sub main{
 		
 		$cmd = "$script_dir/table2Matrix.pl $smf_list 3 > $chr.matrix";
 		system($cmd) == 0 or warn "[Master] Failed to generate $chr matrix file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "$script_dir/analyzeMatrix.R $chr.matrix 1 label_groups $chr";
+		$cmd = "Rscript $script_dir/analyzeMatrix.R $chr.matrix 1 label_groups $chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate statistics file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "$script_dir/segmentOnly.R $chr.jsd.txt $chr";
+		$cmd = "Rscript $script_dir/segmentOnly.R $chr.jsd.txt $chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate bed file (exit $?): $!\nCommand used:\n\t$cmd\n";
 		$cmd = "$script_dir/allMethyl2Matrix.pl $amf_list $minDepth 1 $chr.HMM.seg.txt cnt dmr $chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate methylFreq file (exit $?): $!\nCommand used:\n\t$cmd\n";

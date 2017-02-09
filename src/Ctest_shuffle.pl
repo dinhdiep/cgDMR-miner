@@ -56,7 +56,7 @@ while($line = <STDIN>){
 	#my $p = $o_m/$o_d;
 	my $p = $sum_ave/$num_samples_mindepth; # use unweighted average to get estimation of binomial p 
 	if($p == 0 || $p == 1){
-		print $value, "\t", $o_d, "\t", $p, "\t", $o_m/$o_d, "\t", 0, "\t", 1, "\t", 0, "\n";
+		print $value, "\t", $o_d, "\t", $p, "\t", $o_m/$o_d, "\t", 0, "\t", 1, "\t", 0, "\t", "NOPASS", "\n";
 		next;
 	}
 	for(my $i = 0; $i < $num_samples_mindepth; $i++){	

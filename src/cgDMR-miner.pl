@@ -18,6 +18,8 @@ my $minEffectSize = 0.2;
 $minEffectSize = $ARGV[4] if($ARGV[4]);
 my $pCutoff = 0.001;
 $pCutoff = $ARGV[3] if($ARGV[3]);
+my $mode = "HMM";
+$mode = $ARGV[5] if($ARGV[5]);
 
 
 my $cmd;
@@ -98,11 +100,11 @@ sub main{
 		system($cmd) == 0 or warn "[Master] Failed to generate $chr matrix file (exit $?): $!\nCommand used:\n\t$cmd\n";
 		$cmd = "Rscript $script_dir/analyzeMatrix.R $temp_dir/$chr.matrix 1 label_groups $temp_dir/$chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate statistics file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "Rscript $script_dir/segmentOnly.R $temp_dir/$chr.jsd.txt $temp_dir/$chr";
+		$cmd = "Rscript $script_dir/segmentOnly.R $temp_dir/$chr.jsd.txt $temp_dir/$chr $mode";
 		system($cmd) == 0 or warn "[Master] Failed to generate bed file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "$script_dir/allMethyl2Matrix.pl $amf_list $minDepth 1 $temp_dir/$chr.HMM.seg.txt cnt dmr $chr";
+		$cmd = "$script_dir/allMethyl2Matrix.pl $amf_list $minDepth 1 $temp_dir/$chr.seg.txt cnt dmr $chr";
 		system($cmd) == 0 or warn "[Master] Failed to generate methylFreq file (exit $?): $!\nCommand used:\n\t$cmd\n";
-		$cmd = "$script_dir/Ctest_shuffle.pl $minDepth $pCutoff $minEffectSize < MethylMatrix.$chr.cnt > $chr.HMM.pval";
+		$cmd = "$script_dir/Ctest_shuffle.pl $minDepth $pCutoff $minEffectSize < MethylMatrix.$chr.cnt > $chr.results.txt";
 		system($cmd) == 0 or warn "[Master] Failed to generate statistics file (exit $?): $!\nCommand used:\n\t$cmd\n"; 		
 		
 		$processed_chr{$chr} = 1;
@@ -121,6 +123,7 @@ sub printUsage{
         print "\t\tminDepth: minimum total depth required in each sample for DMR summarization\n";
         print "\t\tp-value cutoff: [0-1] maximum p value for DMRs. Default 0.001 \n\n";
         print "\t\tminimum efect size: [0-1] effect size cutoff for DMRs. Default 0.2 \n\n";
+        print "\t\tsegmentation mode: HMM or CBS. Default HMM \n\n";
         exit 0;
 }
 

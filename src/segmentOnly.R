@@ -13,6 +13,7 @@ msg.trap <- capture.output( suppressMessages( library( MASS ) ) )
 args <- commandArgs(trailingOnly = TRUE)
 fileName <- args[1]
 outName <- args[2]
+mode <- args[3]
 
 my_cpu <- 2
 
@@ -77,7 +78,7 @@ get_hmm_seg <- function(df){
 			end=c(segments$end, collapsed[,max(pos)+1,by=id]$V1), 
 			stat=c(segments$stat, collapsed[,mean(stat),by=id]$V1),
 			state=c(segments$state, collapsed[,mean(state),by=id]$V1))
-        write.table(data.frame(chrom=rep(df$chr[1], nrow(segments)), segments), file=paste0(outName, ".HMM.seg.txt"), quote=F, row=F, sep="\t")
+        write.table(data.frame(chrom=rep(df$chr[1], nrow(segments)), segments), file=paste0(outName, ".seg.txt"), quote=F, row=F, sep="\t")
         write.table(mydf, file=paste0(outName, ".HMM.sites.txt"), quote=F, row=F, sep="\t")
 }
 
@@ -115,7 +116,7 @@ get_fastseg <- function(df){
                 }
         }
 	segments <- data.frame(chrom=rep(cur_chrom, nrow(segments)), segments)
-        write.table(segments, file=paste0(outName, ".Cyber.seg.txt"), quote=F, row=F, sep="\t")
+        write.table(segments, file=paste0(outName, ".seg.txt"), quote=F, row=F, sep="\t")
 }
 
 get_segment <- function(df){
@@ -124,7 +125,7 @@ get_segment <- function(df){
         smoothed.CNA.object <- smooth.CNA(CNA.object)
         segment.smoothed.CNA.object <- segment(smoothed.CNA.object,verbose=1)
         segment.smoothed.CNA.object$output$loc.end = segment.smoothed.CNA.object$output$loc.end + 1
-        write.table(segment.smoothed.CNA.object$output[,2:6], file=paste0(outName, ".CNA.seg.txt"), quote=F, row=F, sep="\t")
+        write.table(segment.smoothed.CNA.object$output[,2:6], file=paste0(outName, ".seg.txt"), quote=F, row=F, sep="\t")
 }
 
 plotHeatScatter <- function(x,y,main,xlab,ylab,numBins){
@@ -211,8 +212,11 @@ my_jsD_function <- function(x){
 	}
 }
 
-	
 #get_fastseg(df)
-#get_segment(df)
-get_hmm_seg(df)
+
+if(grepl("CBS", mode)){
+	get_segment(df)
+}else{
+	get_hmm_seg(df)
+}
 

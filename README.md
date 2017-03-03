@@ -5,6 +5,8 @@
 
 ### Description of input options
 Note input order must be maintained exactly.
+
+
 Input | Explanation of values
 ------------|-------------------------------------
 1. samplesInfo |  a tab separated file with three columns and one row per sample, (1) sample name, (2) sample id, (3) path to list of methylation frequency files. For each sample a list of methylation frequency file must be generated, which is a tab separated table comprised of three columns and one row per chromosome: (1) sample name matching samples_info file, (2) path to the specific methylation frequency file, (3) chromosome name. Note that both sample names and sample ids should not contain any spaces.

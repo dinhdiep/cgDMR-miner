@@ -13,9 +13,9 @@ perl ./src/cgDMR-miner.pl samplesInfo cpgBedList minDepth pValueCutoff minEffect
 
 ## Information about the method
 
-![SFigure1](https://dinhdiep.github.com/cgDMR-miner/img/SFigure1.jpg.jpg) 
-![SFigure2](https://dinhdiep.github.com/cgDMR-miner/img/SFigure2.jpg.jpg) 
-![SFigure3](https://dinhdiep.github.com/cgDMR-miner/img/SFigure3.jpg.jpg) 
-![SFigure4](https://dinhdiep.github.com/cgDMR-miner/img/SFigure4.jpg.jpg) 
-![SFigure5](https://dinhdiep.github.com/cgDMR-miner/img/SFigure5.jpg.jpg) 
+![SFigure1](https://github.com/dinhdiep/cgDMR-miner/blob/master/img/SFigure1.jpg.jpg) 
+![SFigure2](https://github.com/dinhdiep/cgDMR-miner/blob/master/img/SFigure2.jpg.jpg) 
+![SFigure3](https://github.com/dinhdiep/cgDMR-miner/blob/master/img/SFigure3.jpg.jpg) 
+![SFigure4](https://github.com/dinhdiep/cgDMR-miner/blob/master/img/SFigure4.jpg.jpg) 
+![SFigure5](https://github.com/dinhdiep/cgDMR-miner/blob/master/img/SFigure5.jpg.jpg) 
  

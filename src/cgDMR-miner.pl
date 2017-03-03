@@ -115,14 +115,14 @@ sub main{
 
 sub printUsage{
         print "cgDMR-miner usage\n";
-        print "\t ./cgDMR-miner.pl <samples_info> <cpg sites bed list> <minDepth> <p-value cutoff> <minimum effect size>\n";
-        print "\t\tsamples_info:  <sample name><tab><sample ID, ie 'case_XX', 'control_XX', 'sample_XX'><tab><path to methylFreq file table>\n";
+        print "\t ./cgDMR-miner.pl <samples_info> <cpg sites bed list> <minDepth> <p-value cutoff> <minimum effect size> <segmentation mode>\n";
+        print "\t\tsamples_info:  <sample name><tab><sample ID><tab><path to methylFreq file table>\n";
         print "\t\t\tmethylFreq paths table: <sample name><tab><path to methylFreq><tab><chromosome name>.\n";
         print "\t\t\tnote: for paired samples, indicate the pairing, ie. case1, control1, case2, control2 etc.\n";
         print "\t\tcpg sites paths table: <chr name><tab><bed path> \n\t\t\tbed files containing the CpG positions to be considered, one file per chromosome.\n";
         print "\t\tminDepth: minimum total depth required in each sample for DMR summarization\n";
         print "\t\tp-value cutoff: [0-1] maximum p value for DMRs. Default 0.001 \n\n";
-        print "\t\tminimum efect size: [0-1] effect size cutoff for DMRs. Default 0.2 \n\n";
+        print "\t\tminimum efect size: [>=0] effect size cutoff for DMRs. Default 0.2 \n\n";
         print "\t\tsegmentation mode: HMM or CBS. Default HMM \n\n";
         exit 0;
 }

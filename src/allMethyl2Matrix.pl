@@ -6,7 +6,6 @@
 #this script is more the new style methylFreq files
 
 use strict;
-use Statistics::Descriptive;
 use POSIX qw(floor);
 
 if(!$ARGV[0]){
@@ -88,7 +87,7 @@ if($regionsBED eq "NA"){
 			my $key = "$chr:$i";
 			push(@{$regionsBins{$key}}, $index);
 		}
-		for(my $i = floor($start/$binSize)-3; $i le floor($start/$binSize)+3; $i++){
+		for(my $i = floor($start/$binSize)-3; $i le floor($end/$binSize)+3; $i++){
 			my $key = "$chr:$i";
 			push(@{$regionsBins{$key}}, $index);
 		}

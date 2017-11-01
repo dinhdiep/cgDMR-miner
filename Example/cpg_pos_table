@@ -1,1 +1,2 @@
-chr20	CG_BED/cpgs.pos.chr20.bed
+chr20	../CG_BED/cpgs.pos.chr20.bed
+chr19	../CG_BED/cpgs.pos.chr19.bed

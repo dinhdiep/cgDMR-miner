@@ -73,15 +73,16 @@ sample2 sample2.chr1.methylFreq	chr1_part2
 
 ## Description of input options:
 
-Input | Explanation of values
-i |  A tab separated file with three columns and one row per sample per chromosome. The columns are: 1. sample id, 2. path to methylation frequency file, 3. chromosome id corresponding to the methylation frequency file. Required.
-o | Name for output directory. Required.
-m | Methylation segmentation mode; for chi-square use 'chsq' and for Jensen-Shannon divergence use 'jsd'. Default is 'jsd'. Note that the 'chsq' option may not work on very low methylation variability datasets.
-d | An integer that is the minimum total depth required in each sample for DMR summarization. Default is 10.
-p | A floating number that is the p-value cutoff for generating the weighted average methylation level matrix. Default is 0.01. 
-n | Number of CpGs to include in sliding window. Default is 5. Note: sliding window don't always generate results.
-s | To perform smoothing with '''bsseq''' instead of pooling adjacent CpGs. Value 'yes' or 'no'. Default is 'yes'.
-c | A tab separated file with two columns, (1) chromosome name, (2) path to cpg positions bed file. For each chromosome, a bed file containing the CpG positions to be considered must be provided. If chromosome bed file is missing, then that chromosome will be ignored. Note that chromosome names should not contain any spaces. Required for smoothing.
+| Input | Explanation of values |
+|----------|-------------|
+| i |  A tab separated file with three columns and one row per sample per chromosome. The columns are: 1. sample id, 2. path to methylation frequency file, 3. chromosome id corresponding to the methylation frequency file. Required.|
+| o | Name for output directory. Required.|
+| m | Methylation segmentation mode; for chi-square use 'chsq' and for Jensen-Shannon divergence use 'jsd'. Default is 'jsd'. Note that the 'chsq' option may not work on very low methylation variability datasets.|
+| d | An integer that is the minimum total depth required in each sample for DMR summarization. Default is 10.|
+| p | A floating number that is the p-value cutoff for generating the weighted average methylation level matrix. Default is 0.01. |
+| n | Number of CpGs to include in sliding window. Default is 5. Note: sliding window don't always generate results.|
+| s | To perform smoothing with '''bsseq''' instead of pooling adjacent CpGs. Value 'yes' or 'no'. Default is 'yes'.|
+| c | A tab separated file with two columns, (1) chromosome name, (2) path to cpg positions bed file. For each chromosome, a bed file containing the CpG positions to be considered must be provided. If chromosome bed file is missing, then that chromosome will be ignored. Note that chromosome names should not contain any spaces. Required for smoothing.|
 
 
 ## Examples

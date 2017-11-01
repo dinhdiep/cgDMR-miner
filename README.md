@@ -1,5 +1,5 @@
 # cgDMR-miner
-###a Efficient method for the identification of differentially methylated CpG regions (DMRs) on whole genome bisulfite sequencing datasets with multiple groups
+### Efficient method for the identification of differentially methylated CpG regions (DMRs) on whole genome bisulfite sequencing datasets with multiple groups
 
 
 ## Download and installation:

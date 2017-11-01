@@ -22,15 +22,14 @@ Required inputs are "mf_list" file and "cpg_pos_table" file. See the example fil
 
 ## Outputs
 
-Seven output files are generated per chromosome.
+These output files are generated per chromosome.
 
 1. chromName.bed - chromosome, start, end positions for all the segmented regions
 2. MethylMatrix.chromName.levels.txt - weighted average methylation level matrix for all samples at DMRs
 3. chromName.HMM4.p_info - results table for the goodness of fit test over all possible regions
 4. chromName.HMM4.sites.txt - results table from 4 states HMM, one record per CpG position
 5. MethylSummary.chromName - results table for methylation variability computation, one record per CpG position (window for sliding window)
-6. MethylMatrix.chr19.cnt - methylation frequency counts matrix for all samples at all the segments
-7. chromName.matrix.gz - compressed file for the smoothed methylation level matrix
+6. chromName.matrix.gz - compressed file for the smoothed methylation level matrix
 
 ## Requirements:
 
@@ -70,28 +69,18 @@ sample2 sample2.chr1.methylFreq	chr1_part2
 7. Perl package Cwd
 8. Perl package Statistics::LSNoHistory
 9. Perl package Statistics::Basic
-10. Perl package Statistics::Descriptive
-11. Perl package Math::Random
+10. Perl package Math::Random
 
 ## Description of input options:
 
 Input | Explanation of values
-------------|-------------------------------------
-
 i |  A tab separated file with three columns and one row per sample per chromosome. The columns are: 1. sample id, 2. path to methylation frequency file, 3. chromosome id corresponding to the methylation frequency file. Required.
-
 o | Name for output directory. Required.
-
 m | Methylation segmentation mode; for chi-square use 'chsq' and for Jensen-Shannon divergence use 'jsd'. Default is 'jsd'. Note that the 'chsq' option may not work on very low methylation variability datasets.
-
 d | An integer that is the minimum total depth required in each sample for DMR summarization. Default is 10.
-
 p | A floating number that is the p-value cutoff for generating the weighted average methylation level matrix. Default is 0.01. 
-
 n | Number of CpGs to include in sliding window. Default is 5. Note: sliding window don't always generate results.
-
 s | To perform smoothing with '''bsseq''' instead of pooling adjacent CpGs. Value 'yes' or 'no'. Default is 'yes'.
-
 c | A tab separated file with two columns, (1) chromosome name, (2) path to cpg positions bed file. For each chromosome, a bed file containing the CpG positions to be considered must be provided. If chromosome bed file is missing, then that chromosome will be ignored. Note that chromosome names should not contain any spaces. Required for smoothing.
 
 

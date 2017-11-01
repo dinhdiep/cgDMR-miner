@@ -86,16 +86,15 @@ sub main{
       $cmd = "perl $script_dir/allMethyl2SlidingWindow.pl mf_list_$chr $num_cgs $min_depth 2 NA $chr";
       system($cmd);
     }else{
-     if(generateSmoothedMatrix($chr)){
+      if(generateSmoothedMatrix($chr)){
         $cmd = "perl $script_dir/matrix2summary.pl $chr.matrix 2 NA $chr";
         system($cmd);
-     }else{
-       print "\n[cgDMR-miner] Unable to finish smoothing $chr. Skipping\n";
-       next;
-     }
-   }
+      }else{
+        print "\n[cgDMR-miner] Unable to finish smoothing $chr. Skipping\n";
+        next;
+      }
+    }
   
-
     # Segmentation with mhsmm
     $cmd = "Rscript $script_dir/hmm_4states.R MethylSummary.$chr $chr $mode";
     system($cmd);
@@ -120,6 +119,7 @@ sub main{
    
     # cleaning up
     unlink("mf_list_$chr");
+    unlink("MethylSummary.$chr");
     system("gzip $chr.matrix");
   }
 
@@ -154,6 +154,7 @@ sub generateDmrsMatrix{
   print OUT $line, "\n";
 
   while($line = <MF_CNT>){
+
     chomp($line);
     my @fields = split "\t", $line;
     next if(!$keep{$fields[0]});
@@ -177,6 +178,7 @@ sub generateDmrsMatrix{
       next;
     }
     print OUT "\n";  
+
   }
   close(MF_CNT);
 
